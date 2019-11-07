@@ -29,9 +29,10 @@ const MongoDB = (props) => {
           const studentModel = {
             name: `${student.First} ${student.Last}`,
             tournaments: [`${student.Month} ${student.Year}`],
+            //TODO: WHY CAN I NOT SET AN OBJECT IN SEASONS?!?!!?
             seasons: [student.Season],
-            novice: false,
-            jv: false,
+            novice: 'badge-danger',
+            jv: 'badge-danger',
           }
           return studentModel
         })
@@ -49,8 +50,9 @@ const MongoDB = (props) => {
           return 0
         })
 
-        let filteredStudents = []
         //Condenses list to eliminate duplicate names
+        let filteredStudents = []
+
         sortedStudents.forEach((student) => {
           if (
             filteredStudents.find(({ name }) => name === student.name) ===
@@ -60,6 +62,8 @@ const MongoDB = (props) => {
           } else {
             let es = filteredStudents.find(({ name }) => name === student.name) //existing student
             es.tournaments.push(`${student.tournaments}`)
+            //TODO: AAAAAAAAGH
+            es.seasons.push(`${student.seasons}`)
             if (
               es.seasons.find((season) => season === `${student.seasons}`) ===
               undefined
@@ -68,7 +72,38 @@ const MongoDB = (props) => {
             }
           }
         })
-        props.setStudentData(filteredStudents)
+
+        const studentSeasonCounts = filteredStudents.map((student) => {
+          return student.seasons.reduce(function(obj, season) {
+            if (!obj[season]) {
+              obj[season] = 0
+            }
+            obj[season]++
+            return obj
+          }, {})
+        })
+
+        const reFilteredStudents = filteredStudents.map((student, index) => {
+          student.seasons = studentSeasonCounts[index]
+          return student
+        })
+
+        const finalStudents = reFilteredStudents.map((student) => {
+          const eligibility = Object.values(student.seasons).reduce((a, b) => {
+            if (b >= 3) {
+              a++
+            }
+            return a
+          }, 0)
+          if (eligibility === 0) {
+            student.novice = 'badge-success'
+            student.jv = 'badge-success'
+          } else if (eligibility <= 3) {
+            student.jv = 'badge-success'
+          }
+          return student
+        })
+        props.setStudentData(finalStudents)
       })
       .catch((err) => {
         console.error(err)

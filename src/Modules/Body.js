@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import Input from './Input'
 import MongoDB from './MongoDB'
+import ResultsList from './ResultsList'
 
 class Body extends Component {
   constructor(props) {
     super(props)
     this.state = {
       studentData: [],
-      searchJV: false,
-      searchNov: false,
       nameInput: '',
     }
   }
@@ -21,25 +20,8 @@ class Body extends Component {
     this.setState({ studentData: docs })
   }
 
-  //REDUCTION LOGIC
-
-  //isEligibleJV = () => {}
-
-  //   isEligibleNovice = (data) => {
-  //     const nov = data.reduce((a, b) => (a !== b ? (b = [b]) : b.push(a)))
-  //     console.log(nov)
-  //   }
-
-  //REDUCE NAMES
-
-  //   reduceName = (list) => {
-  //     return list.reduce((prev, current) => {
-  //       if (prev.name === current.name) {
-  //         return current
-  //       } else {
-  //         return prev
-  //       }
-  //     }, '')
+  //   isJvEligible = (student) => {
+  //     Object.values(student.seasons)
   //   }
 
   searchName = (student) => {
@@ -55,18 +37,28 @@ class Body extends Component {
 
   render() {
     return (
-      <div className="container">
-        <MongoDB
-          studentData={this.state.studentData}
-          setStudentData={this.setStudentData}
-        />
-        <Input
-          value={this.state.nameInput}
-          handleInput={this.handleInput}
-          studentData={this.state.studentData}
-          searchName={this.searchName}
-          reduceName={this.reduceName}
-        />
+      <div className="container-fluid w-50">
+        <div className="row">
+          <MongoDB
+            studentData={this.state.studentData}
+            setStudentData={this.setStudentData}
+          />
+          <Input
+            value={this.state.nameInput}
+            handleInput={this.handleInput}
+            studentData={this.state.studentData}
+            searchName={this.searchName}
+          />
+        </div>
+        <div className="row">
+          <ul className="list-group list-group-flush w-100">
+            <ResultsList
+              studentData={this.state.studentData}
+              searchName={this.searchName}
+              value={this.state.nameInput}
+            />
+          </ul>
+        </div>
       </div>
     )
   }
