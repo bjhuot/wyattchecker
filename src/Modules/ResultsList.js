@@ -15,30 +15,39 @@ const ResultsList = (props) => {
   //     }
   //   }
 
-  return filtered.map((filteredStudent, index) => {
+  if (props.value === '') {
     return (
-      <li
-        key={index}
-        className="list-group-item d-flex justify-content-between"
-      >
-        {filteredStudent.name}
-        <span>
-          <span
-            className={`badge badge-pill ${filteredStudent.novice}`}
-            id="novice"
-          >
-            Novice
-          </span>
-          <span
-            className={`badge badge-pill ml-3 ${filteredStudent.jv}`}
-            id="jv"
-          >
-            JV
-          </span>
-        </span>
-      </li>
+      <p>
+        Enter a student's name in the search box above to detemine their JV or
+        Novice eligibility.
+      </p>
     )
-  })
+  } else {
+    return filtered.map((filteredStudent, index) => {
+      return (
+        <li
+          key={index}
+          className="list-group-item d-flex justify-content-between"
+        >
+          {filteredStudent.name}
+          <span>
+            <span
+              className={`badge badge-pill ${filteredStudent.novice}`}
+              id="novice"
+            >
+              Novice
+            </span>
+            <span
+              className={`badge badge-pill ml-3 ${filteredStudent.jv}`}
+              id="jv"
+            >
+              JV
+            </span>
+          </span>
+        </li>
+      )
+    })
+  }
 }
 
 export default ResultsList

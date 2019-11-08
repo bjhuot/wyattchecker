@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Input from './Input'
 import MongoDB from './MongoDB'
 import ResultsList from './ResultsList'
+import logo from '../images/wwdl-logo.png'
 
 class Body extends Component {
   constructor(props) {
@@ -38,6 +39,11 @@ class Body extends Component {
   render() {
     return (
       <div className="container-fluid w-50">
+        <div className="jumbotron my-0 py-0">
+          <div className="container-fluid d-flex justify-content-center">
+            <img src={logo} alt="Wilson Wyatt Debate League" id="logo" />
+          </div>
+        </div>
         <div className="row">
           <MongoDB
             studentData={this.state.studentData}
