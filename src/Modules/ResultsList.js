@@ -14,7 +14,7 @@ const ResultsList = (props) => {
   //       document.querySelector('#nov').classList.add('badge-warning')
   //     }
   //   }
-
+  console.log(filtered)
   if (props.value === '') {
     return (
       <p>

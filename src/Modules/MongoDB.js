@@ -97,7 +97,7 @@ const MongoDB = (props) => {
           if (eligibility === 0) {
             student.novice = 'badge-success'
             student.jv = 'badge-success'
-          } else if (eligibility <= 3) {
+          } else if (eligibility < 3) {
             student.jv = 'badge-success'
           }
           return student
