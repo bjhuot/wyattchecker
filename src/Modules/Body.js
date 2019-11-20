@@ -38,32 +38,30 @@ class Body extends Component {
 
   render() {
     return (
-      <div className="container-fluid w-50">
-        <div className="jumbotron my-0 py-0">
-          <div className="container-fluid d-flex justify-content-center">
-            <img src={logo} alt="Wilson Wyatt Debate League" id="logo" />
-          </div>
-        </div>
-        <div className="row">
-          <MongoDB
-            studentData={this.state.studentData}
-            setStudentData={this.setStudentData}
-          />
-          <Input
-            value={this.state.nameInput}
-            handleInput={this.handleInput}
-            studentData={this.state.studentData}
-            searchName={this.searchName}
-          />
-        </div>
-        <div className="row">
-          <ul className="list-group list-group-flush w-100">
-            <ResultsList
+      <div>
+        <img src={logo} alt="Wilson Wyatt Debate League" id="logo" />
+        <div className="container-fluid w-50">
+          <div className="row">
+            <MongoDB
+              studentData={this.state.studentData}
+              setStudentData={this.setStudentData}
+            />
+            <Input
+              value={this.state.nameInput}
+              handleInput={this.handleInput}
               studentData={this.state.studentData}
               searchName={this.searchName}
-              value={this.state.nameInput}
             />
-          </ul>
+          </div>
+          <div className="row">
+            <ul className="list-group list-group-flush w-100">
+              <ResultsList
+                studentData={this.state.studentData}
+                searchName={this.searchName}
+                value={this.state.nameInput}
+              />
+            </ul>
+          </div>
         </div>
       </div>
     )

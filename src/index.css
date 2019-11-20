@@ -17,6 +17,10 @@ code {
 }
 
 #logo {
-  width: 75%;
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  max-width: max-content;
   height: auto;
+  object-fit: contain;
 }
