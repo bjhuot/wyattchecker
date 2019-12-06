@@ -43,6 +43,12 @@ const ResultsList = (props) => {
             >
               JV
             </span>
+            <span
+              className={`badge badge-pill ml-3 ${filteredStudent.judge}`}
+              id="judge"
+            >
+              Judge
+            </span>
           </span>
         </li>
       )

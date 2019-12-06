@@ -23,15 +23,19 @@ const MongoDB = (props) => {
       .then((docs) => {
         console.log('Found docs')
         console.log('[MongoDB Stitch] Connected to Stitch')
+
+        // const season =
+
         //Standardizes student data
         const students = docs.map((student) => {
           const studentModel = {
             name: `${student.First} ${student.Last}`,
-            tournaments: [`${student.Month} ${student.Year}`],
-            //TODO: WHY CAN I NOT SET AN OBJECT IN SEASONS?!?!!?
-            seasons: [student.Season],
+            tournaments: [`${student.Event} ${student.Timestamp}`],
+            seasons: [],
+            varsityCounts: 0,
             novice: 'badge-danger',
             jv: 'badge-danger',
+            judge: 'badge-danger',
           }
           return studentModel
         })
@@ -49,7 +53,7 @@ const MongoDB = (props) => {
           return 0
         })
 
-        //Condenses list to eliminate duplicate names
+        //Condenses entries
         let filteredStudents = []
 
         sortedStudents.forEach((student) => {
@@ -61,29 +65,50 @@ const MongoDB = (props) => {
           } else {
             let es = filteredStudents.find(({ name }) => name === student.name) //existing student
             es.tournaments.push(`${student.tournaments}`)
-            //TODO: AAAAAAAAGH
-            es.seasons.push(`${student.seasons}`)
-            if (
-              es.seasons.find((season) => season === `${student.seasons}`) ===
-              undefined
-            ) {
-              es.seasons.push(`${student.seasons}`)
-            }
           }
         })
 
         const studentSeasonCounts = filteredStudents.map((student) => {
-          return student.seasons.reduce(function(obj, season) {
-            if (!obj[season]) {
-              obj[season] = 0
+          return student.tournaments.reduce(function(obj, season) {
+            //Standardizes school year to beginning (eg, 2018-19 becomes 2018)
+            let month = new RegExp('\\d{1,2}(?=/)')
+            month = parseInt(month.exec(season))
+            let year = new RegExp('\\d{2}(?=\\s)')
+            year = parseInt(year.exec(season))
+            if (month <= 8) {
+              year = year - 1
             }
-            obj[season]++
+            if (!obj[year]) {
+              obj[year] = 0
+            }
+            obj[year]++
             return obj
           }, {})
         })
 
+        const varsityCounts = filteredStudents.map((student) => {
+          return student.tournaments.reduce((a, b) => {
+            let varsity = new RegExp('^V')
+            if (varsity.test(b)) {
+              a++
+            }
+            return a
+          }, 0)
+        })
+
+        // const studentSeasonCounts = filteredStudents.map((student) => {
+        //   return student.seasons.reduce(function(obj, season) {
+        //     if (!obj[season]) {
+        //       obj[season] = 0
+        //     }
+        //     obj[season]++
+        //     return obj
+        //   }, {})
+        // })
+
         const reFilteredStudents = filteredStudents.map((student, index) => {
           student.seasons = studentSeasonCounts[index]
+          student.varsityCounts = varsityCounts[index]
           return student
         })
 
@@ -99,6 +124,9 @@ const MongoDB = (props) => {
             student.jv = 'badge-success'
           } else if (eligibility < 3) {
             student.jv = 'badge-success'
+          }
+          if (student.varsityCounts >= 9) {
+            student.judge = 'badge-success'
           }
           return student
         })
