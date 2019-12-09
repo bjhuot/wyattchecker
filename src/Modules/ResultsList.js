@@ -25,28 +25,19 @@ const ResultsList = (props) => {
   } else {
     return filtered.map((filteredStudent, index) => {
       return (
-        <li
-          key={index}
-          className="list-group-item d-flex justify-content-between"
-        >
+        <li key={index} className="result">
           {filteredStudent.name}
           <span>
             <span
-              className={`badge badge-pill ${filteredStudent.novice}`}
+              className={`eligibility ${filteredStudent.novice}`}
               id="novice"
             >
-              Novice
+              Nov
             </span>
-            <span
-              className={`badge badge-pill ml-3 ${filteredStudent.jv}`}
-              id="jv"
-            >
+            <span className={`eligibility ${filteredStudent.jv}`} id="jv">
               JV
             </span>
-            <span
-              className={`badge badge-pill ml-3 ${filteredStudent.judge}`}
-              id="judge"
-            >
+            <span className={`eligibility ${filteredStudent.judge}`} id="judge">
               Judge
             </span>
           </span>
