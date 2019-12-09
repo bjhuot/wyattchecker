@@ -31,9 +31,9 @@ const MongoDB = (props) => {
             tournaments: [`${student.Event} ${student.Timestamp}`],
             seasons: [],
             varsityCounts: 0,
-            novice: 'badge-danger',
-            jv: 'badge-danger',
-            judge: 'badge-danger',
+            novice: 'elig-false',
+            jv: 'elig-false',
+            judge: 'elig-false',
           }
           return studentModel
         })
@@ -108,10 +108,13 @@ const MongoDB = (props) => {
             return a
           }, 0)
           if (eligibility === 0) {
-            student.novice = 'badge-success'
-            student.jv = 'badge-success'
+            student.novice = 'elig-true'
+            student.jv = 'elig-true'
           } else if (eligibility < 3) {
-            student.jv = 'badge-success'
+            student.jv = 'elig-true'
+          }
+          if (student.varsityCounts >= 9) {
+            student.judge = 'elig-true'
           }
           if (student.varsityCounts >= 9) {
             student.judge = 'badge-success'

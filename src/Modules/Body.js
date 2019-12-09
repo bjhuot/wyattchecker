@@ -21,10 +21,6 @@ class Body extends Component {
     this.setState({ studentData: docs })
   }
 
-  //   isJvEligible = (student) => {
-  //     Object.values(student.seasons)
-  //   }
-
   searchName = (student) => {
     return this.state.studentData.filter((student) => {
       const regex = new RegExp(this.state.nameInput, 'i')
@@ -38,31 +34,25 @@ class Body extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         <img src={logo} alt="Wilson Wyatt Debate League" id="logo" />
-        <div className="container-fluid w-50">
-          <div className="row">
-            <MongoDB
-              studentData={this.state.studentData}
-              setStudentData={this.setStudentData}
-            />
-            <Input
-              value={this.state.nameInput}
-              handleInput={this.handleInput}
-              studentData={this.state.studentData}
-              searchName={this.searchName}
-            />
-          </div>
-          <div className="row">
-            <ul className="list-group list-group-flush w-100">
-              <ResultsList
-                studentData={this.state.studentData}
-                searchName={this.searchName}
-                value={this.state.nameInput}
-              />
-            </ul>
-          </div>
-        </div>
+        <MongoDB
+          studentData={this.state.studentData}
+          setStudentData={this.setStudentData}
+        />
+        <Input
+          value={this.state.nameInput}
+          handleInput={this.handleInput}
+          studentData={this.state.studentData}
+          searchName={this.searchName}
+        />
+        <ul className="results">
+          <ResultsList
+            studentData={this.state.studentData}
+            searchName={this.searchName}
+            value={this.state.nameInput}
+          />
+        </ul>
       </div>
     )
   }
