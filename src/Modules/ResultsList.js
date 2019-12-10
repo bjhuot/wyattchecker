@@ -2,18 +2,9 @@ import React from 'react'
 
 const ResultsList = (props) => {
   const filtered = props.searchName(props.value)
-  //   const pillColor = (filteredStudent) => {
-  //     if (filteredStudent.jv === true) {
-  //       document.querySelector('#jv').classList.add('badge-success')
-  //     } else {
-  //       document.querySelector('#jv').classList.add('badge-warning')
-  //     }
-  //     if (filteredStudent.novice === true) {
-  //       document.querySelector('#nov').classList.add('badge-success')
-  //     } else {
-  //       document.querySelector('#nov').classList.add('badge-warning')
-  //     }
-  //   }
+
+  //SHOWS MODAL
+
   console.log(filtered)
   if (props.value === '') {
     return (
@@ -26,18 +17,39 @@ const ResultsList = (props) => {
     return filtered.map((filteredStudent, index) => {
       return (
         <li key={index} className="result">
-          {filteredStudent.name}
+          <span>{filteredStudent.name}</span>
           <span>
             <span
+              title={`Student is ${
+                filteredStudent.novice === 'elig-false'
+                  ? 'not eligible'
+                  : 'eligible'
+              } to compete in novice.`}
               className={`eligibility ${filteredStudent.novice}`}
               id="novice"
             >
               Nov
             </span>
-            <span className={`eligibility ${filteredStudent.jv}`} id="jv">
+            <span
+              title={`Student is ${
+                filteredStudent.jv === 'elig-false'
+                  ? 'not eligible'
+                  : 'eligible'
+              } to compete in JV.`}
+              className={`eligibility ${filteredStudent.jv}`}
+              id="jv"
+            >
               JV
             </span>
-            <span className={`eligibility ${filteredStudent.judge}`} id="judge">
+            <span
+              title={`Student is ${
+                filteredStudent.judge === 'elig-false'
+                  ? 'not eligible'
+                  : 'eligible'
+              } to judge.`}
+              className={`eligibility ${filteredStudent.judge}`}
+              id="judge"
+            >
               Judge
             </span>
           </span>

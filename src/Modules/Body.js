@@ -3,6 +3,7 @@ import Input from './Input'
 import MongoDB from './MongoDB'
 import ResultsList from './ResultsList'
 import logo from '../images/wwdl-logo.png'
+import Student from './Student'
 
 class Body extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Body extends Component {
     this.state = {
       studentData: [],
       nameInput: '',
+      activeStudent: {},
     }
   }
 
@@ -32,6 +34,15 @@ class Body extends Component {
     })
   }
 
+  // setModal = (e) => {
+  //   const modal = document.querySelector('.modal')
+  //   const student = this.state.studentData.find((student) =>
+  //     student.name === e.target.innerText ? student : null
+  //   )
+  //   this.setState({ activeStudent: student })
+  //   modal.style.visibility = 'visible'
+  // }
+
   render() {
     return (
       <div className="main">
@@ -51,7 +62,9 @@ class Body extends Component {
             studentData={this.state.studentData}
             searchName={this.searchName}
             value={this.state.nameInput}
+            setModal={this.setModal}
           />
+          {/* <Student student={this.state.activeStudent} /> */}
         </ul>
       </div>
     )
