@@ -3,6 +3,7 @@ import Input from './Input'
 import MongoDB from './MongoDB'
 import ResultsList from './ResultsList'
 import logo from '../images/wwdl-logo.png'
+import Student from './Student'
 
 class Body extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Body extends Component {
     this.state = {
       studentData: [],
       nameInput: '',
+      activeStudent: {},
     }
   }
 
@@ -20,10 +22,6 @@ class Body extends Component {
   setStudentData = (docs) => {
     this.setState({ studentData: docs })
   }
-
-  //   isJvEligible = (student) => {
-  //     Object.values(student.seasons)
-  //   }
 
   searchName = (student) => {
     return this.state.studentData.filter((student) => {
@@ -36,33 +34,38 @@ class Body extends Component {
     })
   }
 
+  // setModal = (e) => {
+  //   const modal = document.querySelector('.modal')
+  //   const student = this.state.studentData.find((student) =>
+  //     student.name === e.target.innerText ? student : null
+  //   )
+  //   this.setState({ activeStudent: student })
+  //   modal.style.visibility = 'visible'
+  // }
+
   render() {
     return (
-      <div>
+      <div className="main">
         <img src={logo} alt="Wilson Wyatt Debate League" id="logo" />
-        <div className="container-fluid w-50">
-          <div className="row">
-            <MongoDB
-              studentData={this.state.studentData}
-              setStudentData={this.setStudentData}
-            />
-            <Input
-              value={this.state.nameInput}
-              handleInput={this.handleInput}
-              studentData={this.state.studentData}
-              searchName={this.searchName}
-            />
-          </div>
-          <div className="row">
-            <ul className="list-group list-group-flush w-100">
-              <ResultsList
-                studentData={this.state.studentData}
-                searchName={this.searchName}
-                value={this.state.nameInput}
-              />
-            </ul>
-          </div>
-        </div>
+        <MongoDB
+          studentData={this.state.studentData}
+          setStudentData={this.setStudentData}
+        />
+        <Input
+          value={this.state.nameInput}
+          handleInput={this.handleInput}
+          studentData={this.state.studentData}
+          searchName={this.searchName}
+        />
+        <ul className="results">
+          <ResultsList
+            studentData={this.state.studentData}
+            searchName={this.searchName}
+            value={this.state.nameInput}
+            setModal={this.setModal}
+          />
+          {/* <Student student={this.state.activeStudent} /> */}
+        </ul>
       </div>
     )
   }
