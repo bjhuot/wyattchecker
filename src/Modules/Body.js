@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Input from './Input'
 import MongoDB from './MongoDB'
 import ResultsList from './ResultsList'
-import logo from '../images/wwdl-logo.png'
+import logo from '../images/logo-wwdl-final.svg'
 import Student from './Student'
 
 class Body extends Component {
