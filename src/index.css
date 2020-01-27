@@ -62,13 +62,13 @@ code {
   color: cornsilk;
 }
 
-.eligibility.elig-true {
+.eligibility.true {
   border: 1px #3ba10f solid;
   border-radius: 10px;
   background: #3ba10f;
 }
 
-.eligibility.elig-false {
+.eligibility.false {
   border: 1px #a10f3b solid;
   border-radius: 10px;
   background: #a10f3b;
