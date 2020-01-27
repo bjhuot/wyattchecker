@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import Input from './Input'
 import ResultsList from './ResultsList'
-import logo from '../images/logo-wwdl-final.svg'
 import {
   Stitch,
   AnonymousCredential,
   RemoteMongoClient,
 } from 'mongodb-stitch-browser-sdk'
 import moment from 'moment'
+import { ReactSVG } from 'react-svg'
+import logo from '../images/logo-wwdl-final.svg'
 
 class Body extends Component {
   constructor(props) {
@@ -147,7 +148,8 @@ class Body extends Component {
   render() {
     return (
       <div className="main">
-        <img src={logo} alt="Wilson Wyatt Debate League" id="logo" />
+        {/* <img src={logo} alt="Wilson Wyatt Debate League" id="logo" /> */}
+        <ReactSVG src={logo} id="logo" />
         <Input
           value={this.state.nameInput}
           handleInput={this.handleInput}
